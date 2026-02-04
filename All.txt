@@ -1,0 +1,1481 @@
+# ✅ EXERCISE–2
+
+## IAM User + Group + MFA + Account Alias
+
+
+
+### Steps
+
+## PART A: Create User Group
+
+1. AWS Console → Search → **IAM**
+2. Left Panel → **User groups**
+3. Click **Create group**
+4. Group name: `StudentsGroup`
+5. Attach Policy:
+
+   * ✅ AdministratorAccess
+   * ✅ IAMUserChangePassword
+6. Click **Create group**
+
+---
+
+## PART B: Create IAM User
+
+1. IAM → Left Panel → **Users**
+2. Click **Add users**
+3. Username: `student1`
+4. Enable ✅ AWS Management Console Access
+5. Select ✅ Create IAM user
+6. Permissions → Add user to group
+7. Select `StudentsGroup`
+8. Click Next → Create user
+9. Download credentials
+
+---
+
+## PART C: Enable MFA
+
+1. IAM → Users → student1
+2. Security credentials tab
+3. MFA → Assign MFA device
+4. Select Virtual MFA
+5. Scan QR in Google Authenticator
+6. Enter 2 OTP codes → Assign
+
+---
+
+## PART D: Create Account Alias
+
+1. IAM Dashboard → Account Alias
+2. Click Create Alias
+3. Enter: `rupesh-cloud-lab`
+4. Click Create alias
+
+✅ Exercise–2 Done
+
+---
+
+---
+
+# ✅ EXERCISE–3
+
+## Amazon S3 Bucket Creation + Upload Object + Public Access
+
+
+
+### Steps
+
+## Step 1: Open S3
+
+1. AWS Console → Search → **S3**
+2. Click **Amazon S3**
+
+---
+
+## Step 2: Create Bucket
+
+1. Click **Create bucket**
+2. Bucket type: General purpose
+3. Bucket name: `rupesh-bucket-12345` (must be unique)
+4. Region: Mumbai (ap-south-1)
+5. Permissions:
+
+   * Uncheck ✅ Block all public access
+   * Tick acknowledge warning
+6. Click **Create bucket**
+
+---
+
+## Step 3: Upload File
+
+1. Open bucket name
+2. Click **Upload**
+3. Click **Add files**
+4. Select image/file
+5. Click **Upload**
+
+---
+
+## Step 4: Make Object Public
+
+1. Bucket → Objects tab
+2. Select uploaded file
+3. Actions → **Make public using ACL**
+4. Confirm
+
+---
+
+## Step 5: Copy Object URL
+
+1. Click object name
+2. Scroll → Object URL
+3. Copy and open in browser
+
+✅ Exercise–3 Done
+
+---
+
+---
+
+# ✅ EXERCISE–4
+
+## Static Website Hosting + Versioning + Cross Region Replication
+
+
+
+---
+
+## PART A: Multi-page Website Hosting
+
+### Step 1: Create Bucket
+
+1. S3 → Create bucket
+2. Name: `my-static-web-demo-123`
+3. Object Ownership → ACLs Enabled
+4. Disable Block Public Access
+5. Create bucket
+
+---
+
+### Step 2: Prepare Files
+
+Folder structure:
+
+```
+my-website/
+ ├── index.html
+ ├── about.html
+ ├── contact.html
+ ├── error.html
+ └── images/banner.jpg
+```
+
+---
+
+### Step 3: Upload Website Files
+
+1. Bucket → Upload
+2. Add all HTML + images folder
+3. Upload
+
+---
+
+### Step 4: Enable Website Hosting
+
+1. Bucket → Properties tab
+2. Static Website Hosting → Edit
+3. Enable
+4. Index document: `index.html`
+5. Error document: `error.html`
+6. Save
+
+---
+
+### Step 5: Add Bucket Policy Public Access
+
+Bucket → Permissions → Bucket Policy → Paste:
+
+```json
+{
+ "Version": "2012-10-17",
+ "Statement": [
+  {
+   "Sid": "PublicReadGetObject",
+   "Effect": "Allow",
+   "Principal": "*",
+   "Action": "s3:GetObject",
+   "Resource": "arn:aws:s3:::my-static-web-demo-123/*"
+  }
+ ]
+}
+```
+
+Save changes
+
+---
+
+### Step 6: Access Website
+
+1. Properties → Static Website Hosting
+2. Copy Endpoint URL
+3. Open in browser
+
+✅ Website hosted
+
+---
+
+## PART B: Enable Versioning
+
+1. Bucket → Properties
+2. Bucket Versioning → Edit
+3. Enable → Save
+
+---
+
+## PART C: Cross Region Replication
+
+1. Create Destination bucket in different region
+2. Enable Versioning in both buckets
+3. Source bucket → Management → Replication Rules
+4. Create rule → Apply to all objects
+5. Destination → Select destination bucket
+6. IAM Role → Create new role
+7. Save rule
+
+✅ Exercise–4 Done
+
+---
+
+---
+
+# ✅ EXERCISE–5
+
+## Launch Windows EC2 + Connect via RDP
+
+
+
+---
+
+## Step 1: Open EC2
+
+1. AWS Console → Search → EC2
+2. Click **Launch Instance**
+
+---
+
+## Step 2: Configure Instance
+
+1. Name: `Windows-RDP-Demo`
+2. AMI: Windows Server Free Tier
+3. Type: t2.micro
+
+---
+
+## Step 3: Key Pair
+
+1. Create new key pair
+2. Download `.pem`
+
+---
+
+## Step 4: Security Group
+
+Inbound Rules:
+
+* RDP 3389 → Anywhere (0.0.0.0/0)
+
+---
+
+## Step 5: Launch
+
+Click Launch Instance
+
+---
+
+## Step 6: Connect via RDP
+
+1. Select instance → Connect
+2. RDP Client tab → Get password
+3. Upload `.pem`
+4. Copy decrypted password
+
+---
+
+## Step 7: Remote Desktop
+
+1. Open mstsc
+2. Enter Public IPv4
+3. Username: Administrator
+4. Paste password → Login
+
+✅ Exercise–5 Done
+
+---
+
+---
+
+# ✅ EXERCISE–6
+
+## Launch Linux EC2 + Connect SSH (PowerShell + PuTTY)
+
+
+
+---
+
+## Step 1: Launch Instance
+
+EC2 → Launch Instance
+
+---
+
+## Step 2: Configure
+
+* Name: Linux-SSH-Demo
+* AMI: Amazon Linux 2
+* Type: t3.micro
+
+---
+
+## Step 3: Key Pair
+
+* Create Key Pair → RSA
+* Format: `.pem`
+  Download file
+
+---
+
+## Step 4: Security Group
+
+Allow:
+
+* SSH (22) → Anywhere
+
+---
+
+## Step 5: Launch Instance
+
+---
+
+## Step 6: Connect Using PowerShell
+
+Move key:
+
+```powershell
+cd Downloads
+```
+
+Fix permissions:
+
+```powershell
+icacls mykey.pem /inheritance:r
+icacls mykey.pem /grant:r "$($env:USERNAME):R"
+```
+
+Connect:
+
+```powershell
+ssh -i mykey.pem ec2-user@<Public-IP>
+```
+
+---
+
+## Step 7: Verify
+
+```bash
+uname -a
+sudo yum update -y
+```
+
+✅ Exercise–6 Done
+
+---
+---
+
+# ✅ EXERCISE–7
+
+## Launch EC2 + Install Apache Web Server + Host Webpage
+
+
+
+---
+
+## Step 1: Launch Linux EC2 Instance
+
+1. AWS Console → Search → **EC2**
+2. Click **Launch Instance**
+
+### Configure:
+
+* Name: `Apache-Web-Server`
+* AMI: Amazon Linux 2
+* Instance type: t2.micro
+
+### Key Pair:
+
+* Select existing or create new → download `.pem`
+
+### Network Settings:
+
+Security Group Inbound Rules:
+
+* SSH → Port 22 → My IP
+* HTTP → Port 80 → Anywhere (0.0.0.0/0)
+
+3. Click **Launch Instance**
+
+---
+
+## Step 2: Connect to EC2 via SSH
+
+PowerShell:
+
+```powershell
+ssh -i mykey.pem ec2-user@<Public-IP>
+```
+
+---
+
+## Step 3: Install Apache Web Server
+
+Run:
+
+```bash
+sudo yum update -y
+sudo yum install httpd -y
+```
+
+---
+
+## Step 4: Start Apache Service
+
+```bash
+sudo systemctl start httpd
+sudo systemctl enable httpd
+```
+
+---
+
+## Step 5: Create Sample Webpage
+
+```bash
+cd /var/www/html
+sudo nano index.html
+```
+
+Paste:
+
+```html
+<html>
+<body>
+<h1>Welcome to Rupesh Apache Server</h1>
+<h2>Cloud Computing Lab Exercise 7</h2>
+</body>
+</html>
+```
+
+Save file.
+
+---
+
+## Step 6: Access Webpage
+
+1. Copy EC2 Public IPv4 Address
+2. Open browser:
+
+```
+http://<Public-IP>
+```
+
+✅ Webpage visible
+
+✅ Exercise–7 Done
+
+---
+
+---
+
+# ✅ EXERCISE–8
+
+## Create Custom AMI from EC2 Instance and Launch New Instance
+
+
+
+---
+
+## Step 1: Launch EC2 Instance
+
+(Do same as Exercise–7)
+
+Name: `Custom-AMI-Base`
+
+---
+
+## Step 2: Install Required Software
+
+SSH into instance:
+
+```bash
+sudo yum update -y
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+```
+
+Create file:
+
+```bash
+sudo nano /var/www/html/index.html
+```
+
+Paste:
+
+```html
+<h1>Custom AMI Server - Created by Rupesh</h1>
+```
+
+Save.
+
+---
+
+## Step 3: Create AMI
+
+1. AWS Console → EC2 Dashboard
+2. Left Menu → Instances
+3. Select instance → Actions
+4. Click:
+
+```
+Image and templates → Create image
+```
+
+5. Image name: `RupeshCustomAMI`
+6. Click **Create image**
+
+---
+
+## Step 4: Verify AMI
+
+1. EC2 → Left Menu → AMIs
+2. Check status → Available
+
+---
+
+## Step 5: Launch Instance from Custom AMI
+
+1. Select AMI → Launch instance from AMI
+2. Instance name: `AMI-New-Instance`
+3. Type: t2.micro
+4. Allow HTTP 80
+5. Launch
+
+---
+
+## Step 6: Test New Instance
+
+Open browser:
+
+```
+http://<New-Public-IP>
+```
+
+✅ Same webpage appears
+
+✅ Exercise–8 Done
+
+---
+
+---
+
+# ✅ EXERCISE–9
+
+## Create VPC with Public and Private Subnets
+
+
+
+---
+
+## Step 1: Open VPC Console
+
+1. AWS Console → Search → **VPC**
+2. Click **Your VPCs**
+
+---
+
+## Step 2: Create VPC
+
+1. Click **Create VPC**
+2. Choose:
+
+```
+VPC and more
+```
+
+3. Enter:
+
+* Name: `LabVPC`
+* IPv4 CIDR: `10.0.0.0/16`
+
+4. Subnets:
+
+* Public Subnet: `10.0.1.0/24`
+* Private Subnet: `10.0.2.0/24`
+
+5. Enable:
+
+✅ Internet Gateway
+✅ Route Tables Auto-create
+
+6. Click **Create VPC**
+
+✅ VPC Created
+
+---
+
+---
+
+# ✅ EXERCISE–10
+
+## Launch Instance in Public Subnet and Private Subnet
+
+
+
+---
+
+## PART A: Launch EC2 in Public Subnet
+
+### Step 1: Launch Instance
+
+EC2 → Launch Instance
+
+* Name: `Public-Instance`
+* AMI: Amazon Linux 2
+* Type: t2.micro
+
+### Network Settings:
+
+* VPC: `LabVPC`
+* Subnet: Public Subnet (`10.0.1.0/24`)
+* Auto-assign Public IP: Enable
+
+Security Group:
+
+* SSH 22 → My IP
+* HTTP 80 → Anywhere
+
+Launch Instance
+
+---
+
+## PART B: Launch EC2 in Private Subnet
+
+### Step 2: Launch Instance
+
+* Name: `Private-Instance`
+* Same AMI and type
+
+Network:
+
+* VPC: LabVPC
+* Subnet: Private Subnet (`10.0.2.0/24`)
+* Auto-assign Public IP: Disable
+
+Security Group:
+
+* SSH 22 → Only from Public Instance SG
+
+Launch Instance
+
+✅ Exercise–10 Done
+
+---
+
+---
+
+# ✅ EXERCISE–11
+
+## Configure NAT Gateway for Private Subnet Internet Access
+
+
+
+---
+
+## Step 1: Create Elastic IP
+
+1. VPC Console → Left Menu → Elastic IPs
+2. Click **Allocate Elastic IP**
+3. Allocate
+
+---
+
+## Step 2: Create NAT Gateway
+
+1. VPC → NAT Gateways
+2. Click **Create NAT Gateway**
+
+Fill:
+
+* Name: `Lab-NAT-Gateway`
+* Subnet: Public Subnet (`10.0.1.0/24`)
+* Elastic IP: Select allocated IP
+
+Click **Create NAT Gateway**
+
+Wait until status → Available
+
+---
+
+## Step 3: Update Route Table for Private Subnet
+
+1. VPC → Route Tables
+2. Select Private Route Table
+3. Routes → Edit Routes
+4. Add:
+
+* Destination: `0.0.0.0/0`
+* Target: NAT Gateway (`Lab-NAT-Gateway`)
+
+Save routes
+
+---
+
+## Step 4: Test Internet from Private Instance
+
+SSH into Public Instance first:
+
+```bash
+ssh -i mykey.pem ec2-user@<Public-IP>
+```
+
+Then connect to Private instance:
+
+```bash
+ssh ec2-user@<Private-IP>
+```
+
+Run:
+
+```bash
+ping google.com
+sudo yum update -y
+```
+
+✅ Internet works via NAT
+
+✅ Exercise–11 Done
+
+---
+---
+
+# ✅ EXERCISE–13
+
+## Create and Configure Amazon RDS Database Instance
+
+
+
+---
+
+## Step 1: Open RDS Console
+
+1. AWS Console → Search → **RDS**
+2. Click **Amazon RDS Dashboard**
+
+---
+
+## Step 2: Create Database
+
+1. Click **Databases**
+2. Click **Create database**
+
+---
+
+## Step 3: Choose Database Engine
+
+1. Select:
+
+✅ Standard Create
+2. Engine type: **MySQL**
+3. Version: Default
+
+---
+
+## Step 4: Templates
+
+Select:
+
+✅ Free Tier
+
+---
+
+## Step 5: Settings
+
+Fill:
+
+* DB Instance Identifier: `labdb`
+* Master username: `admin`
+* Master password: `Admin@12345`
+* Confirm password: `Admin@12345`
+
+---
+
+## Step 6: Instance Configuration
+
+* DB instance class: `db.t3.micro`
+
+---
+
+## Step 7: Storage
+
+Keep default:
+
+* 20 GB General Purpose (SSD)
+
+---
+
+## Step 8: Connectivity
+
+1. Virtual Private Cloud: Default VPC
+2. Public access: ✅ Yes
+3. VPC Security group:
+
+* Create new SG: `RDS-SG`
+
+---
+
+## Step 9: Database Authentication
+
+Keep default:
+
+✅ Password Authentication
+
+---
+
+## Step 10: Create Database
+
+Click **Create database**
+
+Wait until Status → ✅ Available
+
+---
+
+## Step 11: Enable Inbound MySQL Access
+
+1. Go to EC2 → Security Groups
+2. Select `RDS-SG`
+3. Inbound Rules → Edit inbound rules
+4. Add Rule:
+
+* Type: MySQL/Aurora
+* Port: 3306
+* Source: Anywhere (0.0.0.0/0)
+
+Save
+
+---
+
+## Step 12: Connect to RDS from EC2
+
+### Install MySQL Client:
+
+```bash
+sudo yum install mysql -y
+```
+
+### Connect:
+
+```bash
+mysql -h <RDS-ENDPOINT> -u admin -p
+```
+
+Enter password:
+
+```
+Admin@12345
+```
+
+---
+
+## Step 13: Create Database & Table
+
+```sql
+CREATE DATABASE college;
+USE college;
+
+CREATE TABLE student (
+id INT PRIMARY KEY,
+name VARCHAR(50)
+);
+
+INSERT INTO student VALUES (1,'Rupesh');
+
+SELECT * FROM student;
+```
+
+✅ Exercise–13 Done
+
+---
+
+---
+
+# ✅ EXERCISE–18
+
+## Create AWS Lambda Function and Run It
+
+
+
+---
+
+## Step 1: Open Lambda
+
+1. AWS Console → Search → **Lambda**
+2. Click **Create function**
+
+---
+
+## Step 2: Create Function
+
+1. Select:
+
+✅ Author from scratch
+
+2. Function Name: `HelloLambda`
+3. Runtime: **Python 3.9**
+4. Click **Create function**
+
+---
+
+## Step 3: Add Code
+
+Go to Code Editor → Replace with:
+
+```python
+def lambda_handler(event, context):
+    return {
+        'statusCode': 200,
+        'body': 'Hello Rupesh! Lambda Executed Successfully'
+    }
+```
+
+Click **Deploy**
+
+---
+
+## Step 4: Test Lambda
+
+1. Click **Test**
+2. Create new test event
+3. Event name: `TestEvent`
+4. Keep default JSON
+5. Click **Save**
+6. Click **Test**
+
+Output:
+
+✅ Status code: 200
+✅ Hello message displayed
+
+✅ Exercise–18 Done
+
+---
+
+---
+
+# ✅ EXERCISE–19
+
+## Create API Gateway Trigger for Lambda Function
+
+
+
+---
+
+## Step 1: Open API Gateway
+
+1. AWS Console → Search → **API Gateway**
+2. Click **Create API**
+
+---
+
+## Step 2: Choose API Type
+
+Select:
+
+✅ REST API → Build
+
+---
+
+## Step 3: Create New API
+
+1. API Name: `LambdaAPI`
+2. Endpoint Type: Regional
+3. Click **Create API**
+
+---
+
+## Step 4: Create Resource
+
+1. Left menu → Resources
+2. Click **Actions → Create Resource**
+3. Resource Name: `hello`
+4. Resource Path: `/hello`
+5. Click **Create Resource**
+
+---
+
+## Step 5: Create GET Method
+
+1. Select `/hello`
+2. Actions → Create Method
+3. Choose:
+
+GET
+
+4. Click ✅ Tick
+
+---
+
+## Step 6: Link Lambda Function
+
+1. Integration type: Lambda Function
+2. Enable ✅ Use Lambda Proxy integration
+3. Lambda Region: ap-south-1
+4. Lambda Function Name: `HelloLambda`
+5. Click Save
+6. Click OK to grant permission
+
+---
+
+## Step 7: Deploy API
+
+1. Actions → Deploy API
+2. Deployment stage: New Stage
+3. Stage name: `prod`
+4. Click Deploy
+
+---
+
+## Step 8: Get Invoke URL
+
+1. Click Stages → prod
+2. Copy Invoke URL
+
+Example:
+
+```
+https://xxxx.execute-api.ap-south-1.amazonaws.com/prod/hello
+```
+
+---
+
+## Step 9: Test in Browser
+
+Open URL:
+
+✅ Output will show:
+
+```
+Hello Rupesh! Lambda Executed Successfully
+```
+
+✅ Exercise–19 Done
+
+---
+
+---
+
+# ✅ EXERCISE–22
+
+## Create and Attach EBS Volume to EC2 Instance
+
+
+
+---
+
+## Step 1: Launch EC2 Instance
+
+1. AWS Console → EC2 → Instances
+2. Launch Amazon Linux 2 instance
+3. Name: `EBS-Lab-Instance`
+4. Allow SSH (22)
+
+---
+
+## Step 2: Create EBS Volume
+
+1. EC2 Dashboard → Left Menu → **Volumes**
+2. Click **Create volume**
+
+Fill:
+
+* Volume type: gp2
+* Size: 5 GB
+* Availability Zone: Same as EC2 instance
+
+Example: ap-south-1a
+
+3. Click **Create volume**
+
+---
+
+## Step 3: Attach Volume to Instance
+
+1. Select Volume → Actions → Attach volume
+2. Choose Instance: `EBS-Lab-Instance`
+3. Device name: `/dev/xvdf`
+4. Click Attach
+
+---
+
+## Step 4: Connect to Instance
+
+```bash
+ssh -i mykey.pem ec2-user@<Public-IP>
+```
+
+---
+
+## Step 5: Check Disk
+
+```bash
+lsblk
+```
+
+---
+
+## Step 6: Format Volume
+
+```bash
+sudo mkfs -t ext4 /dev/xvdf
+```
+
+---
+
+## Step 7: Create Mount Directory
+
+```bash
+sudo mkdir /data
+```
+
+---
+
+## Step 8: Mount Volume
+
+```bash
+sudo mount /dev/xvdf /data
+```
+
+---
+
+## Step 9: Verify Mount
+
+```bash
+df -h
+```
+
+---
+
+## Step 10: Permanent Mount (fstab)
+
+```bash
+sudo blkid
+```
+
+Copy UUID, then edit:
+
+```bash
+sudo nano /etc/fstab
+```
+
+Add line:
+
+```
+UUID=<copied-uuid>  /data  ext4  defaults,nofail  0  2
+```
+
+Save.
+
+✅ Exercise–22 Done
+
+---
+
+---
+
+# ✅ EXERCISE–23
+
+## Create Snapshot of EBS Volume and Restore Volume
+
+
+
+---
+
+## Step 1: Create Snapshot
+
+1. EC2 Dashboard → Volumes
+2. Select Volume
+3. Actions → Create Snapshot
+4. Name: `LabSnapshot`
+5. Click Create Snapshot
+
+---
+
+## Step 2: Verify Snapshot
+
+1. Left Menu → Snapshots
+2. Status must become ✅ Completed
+
+---
+
+## Step 3: Restore Volume from Snapshot
+
+1. Select Snapshot → Actions → Create Volume
+2. Size: same
+3. AZ: same as instance
+4. Click Create Volume
+
+---
+
+## Step 4: Attach Restored Volume
+
+1. Volumes → Select new volume
+2. Actions → Attach Volume
+3. Choose Instance
+4. Device: `/dev/xvdg`
+5. Attach
+
+---
+
+## Step 5: Mount Restored Volume
+
+```bash
+sudo mkdir /restore
+sudo mount /dev/xvdg /restore
+df -h
+```
+
+✅ Snapshot restored successfully
+
+✅ Exercise–23 Done
+
+---
+
+---
+
+# ✅ EXERCISE–24
+
+## Monitor EC2 Instance Using CloudWatch Alarm
+
+
+
+---
+
+## Step 1: Open CloudWatch
+
+1. AWS Console → Search → **CloudWatch**
+2. Left Menu → Alarms
+3. Click **Create Alarm**
+
+---
+
+## Step 2: Select Metric
+
+1. Click **Select Metric**
+2. Choose:
+
+EC2 → Per-Instance Metrics → CPUUtilization
+
+3. Select instance
+4. Click Select Metric
+
+---
+
+## Step 3: Configure Alarm
+
+1. Statistic: Average
+2. Period: 5 minutes
+3. Condition:
+
+CPUUtilization > 70
+
+---
+
+## Step 4: Notification
+
+1. Create new SNS Topic:
+
+* Topic name: `CPUAlertTopic`
+* Email: your email ID
+
+2. Click Create topic
+3. Confirm email subscription
+
+---
+
+## Step 5: Alarm Name
+
+Alarm name: `HighCPUAlarm`
+
+Click **Create Alarm**
+
+✅ Exercise–24 Done
+
+---
+
+---
+
+# ✅ EXERCISE–25
+
+## Create Auto Scaling Group with Launch Template
+
+
+
+---
+
+## Step 1: Create Launch Template
+
+1. EC2 Dashboard → Launch Templates
+2. Click Create launch template
+
+Fill:
+
+* Name: `LabTemplate`
+* AMI: Amazon Linux 2
+* Instance type: t2.micro
+* Security group: Allow SSH + HTTP
+
+User Data (paste):
+
+```bash
+#!/bin/bash
+yum update -y
+yum install httpd -y
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Auto Scaling Server - Rupesh</h1>" > /var/www/html/index.html
+```
+
+Click Create
+
+---
+
+## Step 2: Create Auto Scaling Group
+
+1. EC2 → Auto Scaling Groups
+2. Click Create Auto Scaling group
+
+Name: `LabASG`
+
+---
+
+## Step 3: Choose Launch Template
+
+Select:
+
+* Launch Template: LabTemplate
+
+Click Next
+
+---
+
+## Step 4: Network
+
+* VPC: Default
+* Subnets: Select 2 public subnets
+
+Click Next
+
+---
+
+## Step 5: Set Group Size
+
+* Desired capacity: 1
+* Minimum: 1
+* Maximum: 3
+
+Click Next → Create ASG
+
+✅ Exercise–25 Done
+
+---
+
+---
+
+# ✅ EXERCISE–26
+
+## Create Application Load Balancer and Attach Auto Scaling Group
+
+
+
+---
+
+## Step 1: Create Target Group
+
+1. EC2 Dashboard → Target Groups
+2. Click Create Target Group
+
+* Type: Instances
+* Name: `LabTG`
+* Protocol: HTTP Port 80
+* VPC: Default
+
+Click Create
+
+---
+
+## Step 2: Create Load Balancer
+
+1. EC2 Dashboard → Load Balancers
+2. Click Create Load Balancer
+3. Select:
+
+✅ Application Load Balancer
+
+---
+
+## Step 3: Configure LB
+
+* Name: `LabALB`
+* Scheme: Internet-facing
+* IP type: IPv4
+
+Listeners:
+
+* HTTP 80
+
+---
+
+## Step 4: Network Mapping
+
+* VPC: Default
+* Select 2 public subnets
+
+---
+
+## Step 5: Security Group
+
+Create SG:
+
+* Allow HTTP 80 from Anywhere
+
+---
+
+## Step 6: Attach Target Group
+
+1. Select Target group: `LabTG`
+2. Click Create Load Balancer
+
+---
+
+## Step 7: Attach ASG to Load Balancer
+
+1. EC2 → Auto Scaling Groups
+2. Select `LabASG`
+3. Tab → Load balancing → Edit
+4. Attach to:
+
+✅ Application Load Balancer
+✅ Select Target group `LabTG`
+
+Save
+
+---
+
+## Step 8: Test Load Balancer
+
+1. Copy ALB DNS Name:
+
+```
+LabALB-xxxx.ap-south-1.elb.amazonaws.com
+```
+
+2. Open in browser
+
+✅ Output:
+
+```
+Auto Scaling Server - Rupesh
+```
+
+✅ Exercise–26 Done
+
+---
+
+
