@@ -1,0 +1,141 @@
+EXERCISE – 2
+AWS IAM User and Group Creation + Enable MFA + Create Account Alias
+
+updatedcloud
+
+✅ PART A: Create IAM User Group
+Step 1: Sign in
+
+Login to AWS Management Console
+
+Search IAM
+
+Open IAM Dashboard
+
+Step 2: Create Group
+
+Left menu → Click User groups
+
+Click Create group
+
+Step 3: Group Name
+
+Enter Group name:
+Example: StudentsGroup
+
+Step 4: Attach Policies
+
+Select policies:
+
+✅ AdministratorAccess
+
+✅ IAMUserChangePassword
+
+Step 5: Create Group
+
+Click Create group
+
+✅ Group created successfully
+
+✅ PART B: Create IAM User
+Step 1: Open Users
+
+IAM Dashboard → Left menu → Click Users
+
+Click Add users
+
+Step 2: User Details
+
+Enter username:
+Example: student1
+
+Check ✅ Provide user access to AWS Management Console
+
+Select ✅ I want to create an IAM user
+
+Step 3: Permissions
+
+Select ✅ Add user to group
+
+Choose group: StudentsGroup
+
+Step 4: Tags (Optional)
+
+Add tag:
+
+Key: Department
+
+Value: MCA
+
+Step 5: Create User
+
+Click Next
+
+Click Create user
+
+Step 6: Save Credentials
+
+Copy and download:
+
+Console Sign-in URL
+
+Username
+
+Password
+
+✅ PART C: Enable MFA for IAM User
+Step 1: Open User
+
+IAM → Users
+
+Click username: student1
+
+Step 2: Security Credentials
+
+Open tab → Security credentials
+
+Scroll to Multi-factor authentication (MFA)
+
+Step 3: Assign MFA
+
+Click Assign MFA device
+
+Choose ✅ Virtual MFA device
+
+Step 4: Configure MFA App
+
+Open Google Authenticator/Authy
+
+Scan QR code
+
+Step 5: Verify MFA
+
+Enter two consecutive codes
+
+Click Assign MFA
+
+✅ MFA Enabled
+
+✅ PART D: Create AWS Account Alias
+Step 1: Open Dashboard
+
+IAM → Left menu → Click Dashboard
+
+Step 2: Create Alias
+
+Under AWS Account
+
+Find Account Alias
+
+Click Create
+
+Step 3: Enter Alias Name
+
+Type alias:
+Example: rupesh-cloud-lab
+
+Step 4: Save
+
+Click Create alias
+
+✅ New Login URL generated
